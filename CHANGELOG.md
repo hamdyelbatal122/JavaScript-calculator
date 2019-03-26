@@ -8,3 +8,4 @@ All notable changes to this project will be documented in this file.
 - [2019-02-23]: style: format system usage charts components
 - [2019-03-06]: docs: document daemon service installation
 - [2019-03-16]: refactor: simplify process detection rules
+- [2019-03-26]: fix: correct cpu load calculation formula
