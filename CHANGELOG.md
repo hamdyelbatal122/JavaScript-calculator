@@ -18,3 +18,4 @@ All notable changes to this project will be documented in this file.
 - [2019-06-06]: refactor: optimize cron runner execution path
 - [2019-06-16]: docs: update troubleshooting guide for agents
 - [2019-06-28]: fix: resolve script exit codes under systemd
+- [2019-07-09]: refactor: streamline alert queues handling
