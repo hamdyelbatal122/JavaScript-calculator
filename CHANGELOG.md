@@ -20,3 +20,4 @@ All notable changes to this project will be documented in this file.
 - [2019-06-28]: fix: resolve script exit codes under systemd
 - [2019-07-09]: refactor: streamline alert queues handling
 - [2019-07-18]: docs: update docker environment guides
+- [2019-07-30]: style: standardize metric keys naming rules
