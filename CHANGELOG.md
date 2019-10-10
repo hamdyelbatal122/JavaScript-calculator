@@ -27,3 +27,4 @@ All notable changes to this project will be documented in this file.
 - [2019-09-09]: chore: update database query performance metrics
 - [2019-09-19]: style: format system usage charts components
 - [2019-10-01]: docs: document daemon service installation
+- [2019-10-10]: refactor: simplify process detection rules
