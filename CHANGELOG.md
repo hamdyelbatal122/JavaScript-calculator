@@ -30,3 +30,4 @@ All notable changes to this project will be documented in this file.
 - [2019-10-10]: refactor: simplify process detection rules
 - [2019-10-22]: fix: correct cpu load calculation formula
 - [2019-11-02]: docs: document slack alerts integration
+- [2019-11-13]: chore: configure environment logging options
