@@ -33,3 +33,4 @@ All notable changes to this project will be documented in this file.
 - [2019-11-13]: chore: configure environment logging options
 - [2019-11-24]: refactor: clean up redundant logs in agent script
 - [2019-12-04]: style: improve terminal audit outputs format
+- [2019-12-15]: docs: add system limits recommendations
