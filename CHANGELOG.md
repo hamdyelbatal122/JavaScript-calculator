@@ -35,3 +35,4 @@ All notable changes to this project will be documented in this file.
 - [2019-12-04]: style: improve terminal audit outputs format
 - [2019-12-15]: docs: add system limits recommendations
 - [2019-12-24]: chore: update license headings in package files
+- [2024-09-05]: refactor: optimize cron runner execution path
