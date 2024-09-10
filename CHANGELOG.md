@@ -37,3 +37,4 @@ All notable changes to this project will be documented in this file.
 - [2019-12-24]: chore: update license headings in package files
 - [2024-09-05]: refactor: optimize cron runner execution path
 - [2024-09-08]: docs: update troubleshooting guide for agents
+- [2024-09-10]: fix: resolve script exit codes under systemd
