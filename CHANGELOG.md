@@ -39,3 +39,4 @@ All notable changes to this project will be documented in this file.
 - [2024-09-08]: docs: update troubleshooting guide for agents
 - [2024-09-10]: fix: resolve script exit codes under systemd
 - [2024-09-12]: refactor: streamline alert queues handling
+- [2024-09-16]: docs: update docker environment guides
