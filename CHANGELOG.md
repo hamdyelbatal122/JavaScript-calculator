@@ -42,3 +42,4 @@ All notable changes to this project will be documented in this file.
 - [2024-09-16]: docs: update docker environment guides
 - [2024-09-19]: style: standardize metric keys naming rules
 - [2024-09-21]: chore: update developer guidelines in docs
+- [2024-09-23]: refactor: optimize server statistics memory tracking
