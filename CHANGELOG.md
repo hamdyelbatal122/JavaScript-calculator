@@ -43,3 +43,4 @@ All notable changes to this project will be documented in this file.
 - [2024-09-19]: style: standardize metric keys naming rules
 - [2024-09-21]: chore: update developer guidelines in docs
 - [2024-09-23]: refactor: optimize server statistics memory tracking
+- [2024-09-25]: docs: refine monitoring configuration guide in README
