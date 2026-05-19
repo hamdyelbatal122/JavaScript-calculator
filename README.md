@@ -54,7 +54,7 @@ graph TD
     C -->|Schema Sizing| H
     A -->|2. Stream Log Chunk| B
     B --> D
-    D -->|O(1) Seek Buffer| G
+    D -->|O-1 Constant Seek Buffer| G
     A -->|3. Trigger Secure Action| B
     B --> E
     E -->|Execute Whitelist| G
