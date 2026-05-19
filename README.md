@@ -1,15 +1,15 @@
 <div align="center">
-    <h1>Laravel CoreWatch 🛡️</h1>
-    <p><strong>A world-class, production-ready DevOps & Server Health Dashboard for Laravel 11, 12 & 13</strong></p>
-    
-    <p>
-        <a href="https://packagist.org/packages/hamzi/corewatch"><img src="https://img.shields.io/badge/packagist-v1.0.0-5F57C9?style=flat-square" alt="Latest Stable Version"></a>
-        <a href="https://github.com/hamdyelbatal122/JavaScript-calculator/actions"><img src="https://img.shields.io/badge/tests-passing-10B981?style=flat-square" alt="Build Status"></a>
-        <a href="https://github.com/hamdyelbatal122/JavaScript-calculator/actions"><img src="https://img.shields.io/badge/pint-passing-10B981?style=flat-square" alt="Pint Status"></a>
-        <a href="https://packagist.org/packages/hamzi/corewatch"><img src="https://img.shields.io/badge/downloads-0-EF4444?style=flat-square" alt="Total Downloads"></a>
-        <a href="https://php.net"><img src="https://img.shields.io/badge/php-^8.2|^-8.5-007EC6?style=flat-square" alt="PHP Version"></a>
-        <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-74C812?style=flat-square" alt="License"></a>
-    </p>
+<h1>Laravel CoreWatch 🛡️</h1>
+<p><strong>A world-class, production-ready DevOps & Server Health Dashboard for Laravel 11, 12 & 13</strong></p>
+
+<p>
+<a href="https://packagist.org/packages/hamzi/corewatch"><img src="https://img.shields.io/badge/packagist-v1.0.0-5F57C9?style=flat-square" alt="Latest Stable Version"></a>
+<a href="https://github.com/hamdyelbatal122/JavaScript-calculator/actions"><img src="https://img.shields.io/badge/tests-passing-10B981?style=flat-square" alt="Build Status"></a>
+<a href="https://github.com/hamdyelbatal122/JavaScript-calculator/actions"><img src="https://img.shields.io/badge/pint-passing-10B981?style=flat-square" alt="Pint Status"></a>
+<a href="https://packagist.org/packages/hamzi/corewatch"><img src="https://img.shields.io/badge/downloads-0-EF4444?style=flat-square" alt="Total Downloads"></a>
+<a href="https://php.net"><img src="https://img.shields.io/badge/php-^8.2|^-8.5-007EC6?style=flat-square" alt="PHP Version"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-74C812?style=flat-square" alt="License"></a>
+</p>
 </div>
 
 ---
