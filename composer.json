@@ -1,0 +1,44 @@
+{
+    "name": "hamzi/corewatch",
+    "description": "An embedded, stealthy DevOps & Server Health Dashboard directly inside your Laravel application.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hamzi",
+            "email": "developer@hamzi.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3|^8.4",
+        "laravel/framework": "^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0",
+        "laravel/pint": "^1.15",
+        "livewire/livewire": "^3.4"
+    },
+    "suggest": {
+        "livewire/livewire": "Allows embedding the reactive CoreWatch dashboard inside Filament, Nova, or custom Livewire admin templates."
+    },
+    "autoload": {
+        "psr-4": {
+            "Hamzi\\CoreWatch\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hamzi\\CoreWatch\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hamzi\\CoreWatch\\CoreWatchServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
