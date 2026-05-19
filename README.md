@@ -14,7 +14,66 @@
 
 ---
 
-`Hamzi/CoreWatch` is a comprehensive, production-ready, and stealthy **DevOps Server Health & Service Control Dashboard** designed specifically for **Laravel 13.x** applications. It embeds an elegant, real-time monitoring suite directly inside your application without external heavy agents or runtime pipelines.
+> [!IMPORTANT]
+> **CoreWatch** is a zero-dependency, self-contained server monitoring utility designed specifically for production Laravel systems. It replaces heavy external daemons by exposing highly performant, read-only system files directly through Laravel's secure execution pipeline.
+
+---
+
+## 🗺️ System Architecture Flowchart
+
+The following diagram illustrates how CoreWatch isolates data collection, streams log buffers, routes controller requests, and schedules alerting triggers:
+
+```mermaid
+graph TD
+    %% Styling
+    classDef primary fill:#0c1528,stroke:#00ccff,stroke-width:2px,color:#fff;
+    classDef secondary fill:#050b18,stroke:#1f2e4d,stroke-width:1px,color:#aaa;
+    classDef alert fill:#0c1528,stroke:#ff3366,stroke-width:2px,color:#fff;
+
+    %% Elements
+    A["💻 Master Dashboard View <br> (AlpineJS Client)"] ::: primary
+    B["🛣️ CoreWatch Routing Gateway <br> (Protected Middleware)"] ::: secondary
+    C["⚙️ SystemMonitor Service"] ::: primary
+    D["📄 LogParser Streamer <br> (Direct fseek seek)"] ::: primary
+    E["⚡ Whitelisted Services Exec <br> (RCE-Proof Command List)"] ::: primary
+    F["⏰ Sentinel Health Command <br> (Artisan Cron Daemon)"] ::: alert
+    
+    G["📡 Host System <br> (/proc, top processes, disk filesystem)"] ::: secondary
+    H["💾 Database Engine <br> (MySQL, SQLite, PGSQL Sizing)"] ::: secondary
+    I["💬 DevOps Channels <br> (Slack & Telegram API)"] ::: alert
+
+    %% Connections
+    A -->|1. Poll Metrics API| B
+    B --> C
+    C -->|Native Syscalls| G
+    C -->|Schema Sizing| H
+    A -->|2. Stream Log Chunk| B
+    B --> D
+    D -->|O(1) Seek Buffer| G
+    A -->|3. Trigger Secure Action| B
+    B --> E
+    E -->|Execute Whitelist| G
+    F -->|Resource Threshold Checks| C
+    F -->|Alert Breaches| I
+```
+
+---
+
+## 🧱 Modular `@include` Partial Architecture
+
+CoreWatch separates all diagnostics into elegant, self-contained monospace tables inside `resources/views/partials/`. This modular structure allows clients to easily publish views and include specific tables anywhere inside their custom dashboards:
+
+| Partial Blade View Path | Diagnostic Target | Layout Display Style | Customization Purpose |
+| :--- | :--- | :--- | :--- |
+| `partials.cpu` | CPU Cores & Load averages | Monospace UNIX Table | Monitor core load thresholds (1M, 5M, 15M) |
+| `partials.ram` | Physical Memory (RAM) Allocation | Monospace Memory Table | Track active, free, and cached allocation bytes |
+| `partials.disk` | Disk Storage Saturated Volumes | Saturated Space Table | Monitor root storage partition size limits |
+| `partials.processes` | Active CPU Top Linux Processes | Live CLI System Table | Identify high CPU usage processes (PID, User) |
+| `partials.database` | Database Engine & Schema size | Monospace DB Status Table | Track table counts and database file sizes |
+| `partials.app-checks` | Operational Application Integrity | Status Indicator List | Verify Cache, Queue, and Security modes |
+| `partials.specifications` | OS Kernel & Laravel specifications | Static Specs Table | Quick access to PHP, OS, and server version info |
+| `partials.services` | Whitelisted system task controls | Command Action Table | Safe execution of authorized terminal commands |
+| `partials.logs` | Live chunked stream terminal view | Cyberpunk Log Console | View and filter real-time logs with pagination |
 
 ---
 
@@ -31,55 +90,16 @@
 
 ---
 
-## 📦 Package Directory Structure
-
-The complete filesystem structure of the package is organized as follows:
-```text
-hamzi/corewatch/
-├── .github/
-│   └── workflows/
-│       └── ci.yml              # GitHub Actions CI matrix workflow for PHP & Laravel
-├── config/
-│   └── corewatch.php           # Feature switches, thresholds, paths and whitelists
-├── resources/
-│   └── views/
-│       └── dashboard.blade.php # Fully interactive responsive Cyberpunk frontend
-├── src/
-│   ├── CoreWatchServiceProvider.php           # Service provider & route bootstrapping
-│   ├── Console/
-│   │   └── Commands/
-│   │       └── CheckHealthCommand.php         # Threshold check & notifier cron
-│   ├── Http/
-│   │   └── Controllers/
-│   │       └── DashboardController.php        # API Metrics, log stream & action router
-│   ├── Livewire/
-│   │   └── CoreWatchDashboard.php             # Drag-and-drop Livewire component
-│   └── Services/
-│       ├── LogParser.php                      # Backward chunked file scanner
-│       └── SystemMonitor.php                  # System metrics and status analyzer
-├── tests/
-│   ├── Feature/
-│   │   └── DashboardTest.php                  # Automated test suite for endpoints & commands
-│   └── TestCase.php                           # Orchestra Testbench base sandbox
-├── .gitignore                  # GitHub ignore files pattern
-├── CONTRIBUTING.md             # Developer workflow contribution guide
-├── LICENSE                     # MIT License
-├── phpunit.xml                 # Test environment configs
-└── README.md                   # Setup documentation
-```
-
----
-
 ## 🛠️ Installation & Setup
 
-### 1. Register Local Repository (Local/Development)
-During local development, configure your main Laravel application's `composer.json` to link the package folder:
+### 1. Link Local Package (Development)
+Configure your host application's `composer.json` to register the local package folder path:
 
 ```json
 "repositories": [
     {
         "type": "path",
-        "url": "../JavaScript-calculator"
+        "url": "../corewatch"
     }
 ],
 ```
@@ -89,83 +109,61 @@ Then pull the package via composer:
 composer require hamzi/corewatch:dev-main
 ```
 
-### 2. Publish Configuration & Assets
-CoreWatch registers its routes and views automatically. Run the publish commands to customize default rules:
+### 2. Publish Configuration & Views
+Publish the assets to customize layout templates and rule lists:
 
 ```bash
 # Publish CoreWatch configuration (config/corewatch.php)
 php artisan vendor:publish --tag=corewatch-config
 
-# Publish Blade UI views for maximum styling customization
+# Publish Blade partials & layouts for customized dashboards
 php artisan vendor:publish --tag=corewatch-views
 ```
 
 ---
 
-## 🔌 Embedded Layout Options
+## 🔌 Flexible Dashboard Integration Options
 
 CoreWatch is designed to fit seamlessly wherever your administration operations are managed:
 
-### Option A: Standalone Routed Dashboard
-Once installed, the dashboard is accessible at `/corewatch` out-of-the-box (configurable in `config/corewatch.php`), protected by your specified route middleware.
+> [!TIP]
+> Make sure to wrap any custom page elements that use these modular tables inside the parent AlpineJS data controller: `<div x-data="corewatchDashboard()">...</div>`.
 
-### Option B: Native Livewire Component (Filament / Nova Integration)
-You can embed the dashboard inside your custom Livewire views or admin dashboards (e.g. custom **Filament** Pages or **Laravel Nova** cards):
+### Option A: Standalone Routed View
+Once active, navigate directly to `/corewatch` to view the comprehensive Cyberpunk DevOps terminal.
+
+### Option B: Modular Table Includes
+Publish the views and embed specific partial views inside your existing administrative panels:
 
 ```html
-<!-- Inside any Blade layout or Livewire page -->
-<livewire:corewatch-dashboard />
+<div x-data="corewatchDashboard()">
+    <div class="grid grid-cols-2 gap-4">
+        <!-- Render CPU and Database tables directly -->
+        @include('corewatch::partials.cpu')
+        @include('corewatch::partials.database')
+    </div>
+</div>
 ```
 
 ### Option C: Blade Custom Component Embeds
-Publish the views and embed the Blade layout within your existing dashboards:
+Embed the full dashboard seamlessly:
 
 ```html
 <x-corewatch-views::dashboard />
 ```
 
----
+### Option D: Livewire Drag-and-Drop
+Embed the Livewire component in Filament dashboards or custom panels:
 
-## ⚙️ Configuration (`config/corewatch.php`)
-
-Ensure you check your configuration to fine-tune your DevOps rules:
-
-- **Routing:** Access route path defaults to `/corewatch`. Protected by `['web']` middleware out-of-the-box.
-- **Allowed Environments:** Defaults to `['local', 'staging', 'production']`.
-- **System Service Controllers:** Register custom, pre-whitelisted Artisan or shell actions:
-  ```php
-  'services' => [
-      'php_queue' => [
-          'name' => 'Artisan Queue Restart',
-          'command' => 'php artisan queue:restart',
-          'type' => 'artisan',
-      ],
-      // ...
-  ]
-  ```
-- **Log Files Parser:** Point to custom paths for Nginx/Apache logs and declare formats (`laravel`, `nginx_access`, `nginx_error`, `apache_access`, `apache_error`).
-- **Resource Threshold Limits:** Customize warning and critical thresholds:
-  - **CPU:** Default `85%` load capacity.
-  - **RAM:** Default `90%` active allocation.
-  - **Disk:** Default `90%` storage saturation.
-
----
-
-## 📡 Automated Health Monitoring Alerting
-
-CoreWatch comes with a built-in health monitor. Register the command in your host application scheduler.
-
-### Laravel 11.x & 12.x / 13.x Scheduling
-Add the following line to `routes/console.php` (or your Scheduler registration):
-
-```php
-use Illuminate\Support\Facades\Schedule;
-
-Schedule::command('corewatch:check-health')->everyFiveMinutes();
+```html
+<livewire:corewatch-dashboard />
 ```
 
-### Setup Environmental Webhooks (.env)
-Define notification endpoints in your host application `.env` to receive real-time warnings:
+---
+
+## ⚙️ Threshold Sentinel alerts Alerting
+
+Enable real-time warnings on Slack or Telegram by configuring your host `.env`:
 
 ```env
 # Slack Alerts Configuration
@@ -177,12 +175,20 @@ COREWATCH_TELEGRAM_BOT_TOKEN="0000000000:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 COREWATCH_TELEGRAM_CHAT_ID="-1000000000000"
 ```
 
+Register the checker command in `routes/console.php` to run every five minutes:
+
+```php
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('corewatch:check-health')->everyFiveMinutes();
+```
+
 ---
 
 ## 🔒 Security Practices & Fallbacks
-1. **RCE Prevention:** CoreWatch **never** runs raw input from request fields. Buttons on the dashboard reference rigid config keys (e.g. `redis_flush`). Only exact commands declared in `config/corewatch.php` are allowed to execute.
-2. **Safe Fallbacks:** If PHP's command execution functions (like `exec`, `proc_open`) are disabled via `disable_functions` in `php.ini`, the system falls back gracefully to native `/proc` direct files and displays interactive UI notifications.
-3. **Optimized I/O Stream:** The Log Parser seeks directly to the end of the files (`fseek` backward) and parses lines in chunks (64KB), meaning it maintains a flat $O(1)$ memory consumption profile regardless of log file size.
+1. **RCE Protection:** CoreWatch never accepts raw input strings to execute shell commands. It maps requests to rigid keys registered in `config/corewatch.php` and blocks any unauthorized requests.
+2. **Memory Safety:** The Log Parser uses direct `fseek` backward seeking to stream logs in 64KB blocks, maintaining a strict $O(1)$ memory consumption profile regardless of log file size.
+3. **Graceful Fallbacks:** If commands like `exec` or `proc_open` are disabled in `php.ini`, the package falls back to parsing native `/proc` direct files and displays interactive notifications.
 
 ---
 
