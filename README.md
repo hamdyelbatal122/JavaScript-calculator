@@ -25,22 +25,27 @@ The following diagram illustrates how CoreWatch isolates data collection, stream
 
 ```mermaid
 graph TD
-    %% Styling
+    %% Elements
+    A["💻 Master Dashboard View <br> (AlpineJS Client)"]
+    B["🛣️ CoreWatch Routing Gateway <br> (Protected Middleware)"]
+    C["⚙️ SystemMonitor Service"]
+    D["📄 LogParser Streamer <br> (Direct fseek seek)"]
+    E["⚡ Whitelisted Services Exec <br> (RCE-Proof Command List)"]
+    F["⏰ Sentinel Health Command <br> (Artisan Cron Daemon)"]
+    
+    G["📡 Host System <br> (/proc, top processes, disk filesystem)"]
+    H["💾 Database Engine <br> (MySQL, SQLite, PGSQL Sizing)"]
+    I["💬 DevOps Channels <br> (Slack & Telegram API)"]
+
+    %% Styling Definitions
     classDef primary fill:#0c1528,stroke:#00ccff,stroke-width:2px,color:#fff;
     classDef secondary fill:#050b18,stroke:#1f2e4d,stroke-width:1px,color:#aaa;
     classDef alert fill:#0c1528,stroke:#ff3366,stroke-width:2px,color:#fff;
 
-    %% Elements
-    A["💻 Master Dashboard View <br> (AlpineJS Client)"] ::: primary
-    B["🛣️ CoreWatch Routing Gateway <br> (Protected Middleware)"] ::: secondary
-    C["⚙️ SystemMonitor Service"] ::: primary
-    D["📄 LogParser Streamer <br> (Direct fseek seek)"] ::: primary
-    E["⚡ Whitelisted Services Exec <br> (RCE-Proof Command List)"] ::: primary
-    F["⏰ Sentinel Health Command <br> (Artisan Cron Daemon)"] ::: alert
-    
-    G["📡 Host System <br> (/proc, top processes, disk filesystem)"] ::: secondary
-    H["💾 Database Engine <br> (MySQL, SQLite, PGSQL Sizing)"] ::: secondary
-    I["💬 DevOps Channels <br> (Slack & Telegram API)"] ::: alert
+    %% Class Assignments
+    class A,C,D,E primary;
+    class B,G,H secondary;
+    class F,I alert;
 
     %% Connections
     A -->|1. Poll Metrics API| B
