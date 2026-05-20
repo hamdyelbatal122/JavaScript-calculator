@@ -47,3 +47,4 @@ All notable changes to this project will be documented in this file.
 - [2024-09-29]: chore: update database query performance metrics
 - [2026-05-20]: feat: add disk I/O monitoring to agent metrics
 - [2026-05-20]: refactor: improve alert deduplication logic
+- [2026-05-20]: docs: add Grafana dashboard configuration guide
